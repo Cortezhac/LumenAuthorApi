@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function index() {
-        return 'hola';
+        $authors=  Author::all();
+        return $this->successResponse($authors);
     }
     /*
      * Save new author
