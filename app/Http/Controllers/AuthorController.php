@@ -54,7 +54,8 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function show($id) {
-
+        $author = Author::findOrFail($id);
+        return $this->successResponse($author);
     }
     /* update especific author
      * @return Illuminate\Http\Response
