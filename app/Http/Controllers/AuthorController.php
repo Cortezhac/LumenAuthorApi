@@ -22,7 +22,7 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function index() {
-
+        return 'hola';
     }
     /*
      * Save new author
@@ -34,19 +34,19 @@ class AuthorController extends Controller
     /* return on especific author
      * @return Illuminate\Http\Response
      */
-    public function show($author) {
+    public function show($id) {
 
     }
     /* update especific author
      * @return Illuminate\Http\Response
      */
-    public function update(Request $request, $author) {
+    public function update(Request $request, $id) {
 
     }
     /* destroy especific author
      * @return Illuminate\Http\Response
      */
-    public function destroy(Request $request, $author) {
+    public function destroy(Request $request, $id) {
 
     }
 }
