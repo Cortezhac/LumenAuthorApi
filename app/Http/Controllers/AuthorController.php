@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthorController extends Controller
 {
@@ -34,7 +35,20 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $rules = [
+            'name' => 'required|max:255',
+            'gender' => 'required|max:10|in:male,female',
+            'country' => 'required|max:255'
+        ];
 
+        $this->validate($request, $rules);
+
+        $author = Author::create([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'country' => $request->country
+        ]);
+        return $this->successResponse($author, Response::HTTP_CREATED);
     }
     /* return on especific author
      * @return Illuminate\Http\Response
