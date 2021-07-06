@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use phpDocumentor\Reflection\Utils;
 
 class AuthorController extends Controller
 {
@@ -61,7 +62,28 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
+        $rules = [
+            'name' => 'max:255',
+            'gender' => 'max:10|in:male,female',
+            'country' => 'max:255'
+        ];
 
+        $this->validate($request, $rules);
+
+        $author = Author::findOrFail($id);
+
+        $author->fill([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'country' => $request->country
+        ]);
+        // if model changes update
+        if($author->isDirty()){
+            $author->save();
+            return $this->successResponse($author);
+        }
+
+        return $this->errorResponse('At least one value must change', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
     /* destroy especific author
      * @return Illuminate\Http\Response
